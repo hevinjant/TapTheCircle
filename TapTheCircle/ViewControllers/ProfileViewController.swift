@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  ProfileViewController.swift
 //  TapTheCircle
 //
 //  Created by Hevin Jant on 9/11/21.
@@ -8,13 +8,14 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
+        title = "Profile"
+        
+        view.backgroundColor = .systemBackground
     }
 
-
 }
-
