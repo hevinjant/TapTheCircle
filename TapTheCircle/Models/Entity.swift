@@ -11,23 +11,23 @@ import UIKit
 
 class Entity {
     static let shared = Entity()
-    
-    func square(x: CGFloat, y: CGFloat, color: UIColor, tag: Int) -> UIView {
+
+    func square(origin: CGPoint, color: UIColor, tag: Int) -> UIView {
         let square = UIView()
         square.backgroundColor = color
-        square.frame = CGRect(x: x, y: y, width: 50, height: 50)
+        square.frame = CGRect(origin: origin, size: CGSize(width: 50, height: 50))
         square.tag = tag
-        
+ 
         return square
     }
     
-    func circle(x: CGFloat, y: CGFloat, color: UIColor, tag: Int) -> UIView {
+    func circle(origin: CGPoint, color: UIColor, tag: Int) -> UIView {
         let circle = UIView()
         circle.backgroundColor = color
-        circle.frame = CGRect(x: x, y: y, width: 50, height: 50)
+        circle.frame = CGRect(origin: origin, size: CGSize(width: 50, height: 50))
         circle.layer.cornerRadius = 25
         circle.tag = tag
-        
+
         return circle
     }
 }

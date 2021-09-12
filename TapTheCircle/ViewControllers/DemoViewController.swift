@@ -67,10 +67,10 @@ class DemoViewController: UIViewController {
                 
                 let entity: UIView
                 if count % 2 == 0 {
-                    entity = Entity.shared.square(x: 50, y: yPos, color: .systemRed, tag: 1)
+                    entity = Entity.shared.square(origin: CGPoint(x: 50, y: 50), color: .systemRed, tag: 1)
                 }
                 else {
-                    entity = Entity.shared.circle(x: 50, y: yPos, color: .systemYellow, tag: 1)
+                    entity = Entity.shared.circle(origin: CGPoint(x: 50, y: 50), color: .systemRed, tag: 1)
                 }
                 
                 DispatchQueue.main.async {
