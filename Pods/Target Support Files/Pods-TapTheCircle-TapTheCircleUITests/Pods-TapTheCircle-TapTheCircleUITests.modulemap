@@ -1,0 +1,6 @@
+framework module Pods_TapTheCircle_TapTheCircleUITests {
+  umbrella header "Pods-TapTheCircle-TapTheCircleUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

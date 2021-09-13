@@ -111,6 +111,11 @@ class GameViewController: UIViewController {
         userDidRemoveEntity(withViewTag: viewTag)
     }
     
+    /// Record the match and put it into database after the game has finished.
+    private func recordUserLog(userName: String, userEmail: String, score: Int, matchTime: Int) {
+        let userLog = UserLog(id: UUID().uuidString, name: userName, email: userName, score: score, matchTime: matchTime, timeStamp: Date().timeIntervalSince1970)
+    }
+    
     private func printAllExistingOrigins() {
         print("Existing origin: ")
         for origin in self.existingOrigins {
@@ -260,5 +265,7 @@ extension GameViewController {
         startGameButton.isHidden = false
         backButton.isHidden = false
         gameHasFinishedLabel.isHidden = false
+        
+        //recordUserLog(userName: <#T##String#>, userEmail: <#T##String#>, score: <#T##Int#>, matchTime: <#T##Int#>)
     }
 }
