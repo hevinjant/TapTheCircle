@@ -95,11 +95,26 @@ class SignUpViewController: UIViewController {
         
         // create user
         AuthManager.shared.signUp(email: email, password: password, completion: { [weak self] success in
-            if success {
-                // update database
-                let newUser = User(name: name, email: email, highestScore: 0)
-                
+            guard success else {
+                return
             }
+            // update database
+            let newUser = User(name: name, email: email, highestScore: 0)
+            DatabaseManager.shared.insertUser(user: newUser, completion: { [weak self] success in
+                guard success else {
+                    return
+                }
+                
+                // cache user's info
+                UserDefaults.standard.set(email, forKey: "email")
+                UserDefaults.standard.set(name, forKey: "name")
+                
+                DispatchQueue.main.async {
+                    let vc = TabBarViewController()
+                    vc.modalPresentationStyle = .fullScreen
+                    self?.present(vc, animated: true)
+                }
+            })
         })
     }
 }

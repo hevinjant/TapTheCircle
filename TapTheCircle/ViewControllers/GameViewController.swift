@@ -14,6 +14,7 @@ class GameViewController: UIViewController {
     var viewQueue = QueueArray<UIView>()
     var gameIsRunning = false
     var score = 0
+    let matchTime = 10
     
     let startGameButton: UIButton = {
         let button = UIButton()
@@ -96,7 +97,7 @@ class GameViewController: UIViewController {
         startGameButton.isHidden = true
         backButton.isHidden = true
         gameHasFinishedLabel.isHidden = true
-        startGame(withTimeInSeconds: 10)
+        startGame(withTimeInSeconds: matchTime)
     }
     
     @objc private func didTapBack() {
@@ -174,7 +175,7 @@ extension GameViewController {
                 self?.view.addSubview(entity)
                 self?.existingOrigins.append(newOrigin)
                 self?.viewQueue.enQueue(item: entity)
-                print("+ a new entity has been added to the view.")
+                //print("+ a new entity has been added to the view.")
             }
         }
         timer.fire()
@@ -194,7 +195,7 @@ extension GameViewController {
                 return
             }
             entity.removeFromSuperview()
-            print("- an entity has been removed from the view.")
+            //print("- an entity has been removed from the view.")
         })
         timer.fire()
     }
@@ -208,7 +209,7 @@ extension GameViewController {
             for i in 0..<self.existingOrigins.count {
                 if removedPoint.x == self.existingOrigins[i].x && removedPoint.y == self.existingOrigins[i].y {
                     self.existingOrigins.remove(at: i)
-                    print("- user has removed an entity.")
+                    //print("- user has removed an entity.")
                     break
                 }
             }
@@ -266,6 +267,18 @@ extension GameViewController {
         backButton.isHidden = false
         gameHasFinishedLabel.isHidden = false
         
-        //recordUserLog(userName: <#T##String#>, userEmail: <#T##String#>, score: <#T##Int#>, matchTime: <#T##Int#>)
+        guard let email = UserDefaults.standard.string(forKey: "email"),
+            let name = UserDefaults.standard.string(forKey: "name") else {
+                return
+        }
+        
+        let userLog = UserLog(id: UUID().uuidString, name: name, email: email, score: score, matchTime: matchTime, timeStamp: Date().timeIntervalSince1970)
+        
+        DatabaseManager.shared.insertUserLog(userLog: userLog, completion: { success in
+            guard success else {
+                return
+            }
+            print("Success inserting userlog to database")
+        })
     }
 }

@@ -25,7 +25,7 @@ class TabBarViewController: UITabBarController {
         
         let navHomeVC = UINavigationController(rootViewController: homeVC)
         navHomeVC.navigationBar.prefersLargeTitles = true
-        navHomeVC.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), tag: 1)
+        navHomeVC.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "star.circle"), tag: 1)
         
         let navProfileVC = UINavigationController(rootViewController: profileVC)
         navProfileVC.navigationBar.prefersLargeTitles = true
