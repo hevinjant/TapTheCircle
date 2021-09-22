@@ -52,9 +52,9 @@ class LeaderBoardTableViewCell: UITableViewCell {
         super.layoutSubviews()
         
         // assign frames
-        nameLabel.frame = CGRect(x: separatorInset.left, y: contentView.center.y-((contentView.frame.size.height/3)/2), width: contentView.frame.origin.x+contentView.frame.size.width/2, height: contentView.frame.size.height/3)
-        scoreLabel.frame = CGRect(x: nameLabel.frame.origin.x+nameLabel.frame.size.width+10, y: contentView.center.y-((contentView.frame.size.height/3)/2), width: contentView.frame.origin.x+contentView.frame.size.width/4, height: contentView.frame.size.height/3)
-        matchTimeLabel.frame = CGRect(x: scoreLabel.frame.origin.x+scoreLabel.frame.size.width+10, y: contentView.center.y-((contentView.frame.size.height/3)/2), width: contentView.frame.origin.x+contentView.frame.size.width/3, height: contentView.frame.size.height/3)
+        nameLabel.frame = CGRect(x: separatorInset.left, y: contentView.center.y-((contentView.height/3)/2), width: contentView.width/3, height: contentView.height/3)
+        scoreLabel.frame = CGRect(x: nameLabel.right+10, y: contentView.center.y-((contentView.height/3)/2), width: contentView.width/5, height: contentView.height/3)
+        matchTimeLabel.frame = CGRect(x: scoreLabel.right+20, y: contentView.center.y-((contentView.frame.size.height/3)/2), width: contentView.width/3, height: contentView.height/3)
     }
     
     override func prepareForReuse() {

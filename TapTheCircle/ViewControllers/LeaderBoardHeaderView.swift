@@ -13,18 +13,21 @@ class LeaderBoardHeaderView: UIView {
     private let nameHeaderLabel: UILabel = {
         let label = UILabel()
         label.text = "Player Name"
+        label.font = .systemFont(ofSize: 15, weight: .medium)
         return label
     }()
     
     private let scoreHeaderLabel: UILabel = {
         let label = UILabel()
         label.text = "Score"
+        label.font = .systemFont(ofSize: 15, weight: .medium)
         return label
     }()
     
     private let matchTimeHeaderLabel: UILabel = {
         let label = UILabel()
         label.text = "Match Time"
+        label.font = .systemFont(ofSize: 15, weight: .medium)
         return label
     }()
     
@@ -32,7 +35,7 @@ class LeaderBoardHeaderView: UIView {
         super.init(frame: frame)
         
         clipsToBounds = true
-        backgroundColor = .systemRed
+        backgroundColor = .systemBackground
         
         // add subviews
         addSubview(nameHeaderLabel)
@@ -48,8 +51,8 @@ class LeaderBoardHeaderView: UIView {
         super.layoutSubviews()
         
         // assign frames
-        nameHeaderLabel.frame = CGRect(x: 10, y: (frame.size.height/2)-((frame.size.width/3)/2), width: frame.size.width/3, height: frame.size.height/2)
-        scoreHeaderLabel.frame = CGRect(x: nameHeaderLabel.frame.origin.x+nameHeaderLabel.frame.size.width+10, y: (frame.size.height/2)-((frame.size.width/3)/2), width: frame.size.width/3, height: frame.size.height/2)
-        matchTimeHeaderLabel.frame = CGRect(x: scoreHeaderLabel.frame.origin.x+scoreHeaderLabel.frame.size.width+10, y: (frame.size.height/2)-((frame.size.width/3)/2), width: frame.size.width/3, height: frame.size.height/2)
+        nameHeaderLabel.frame = CGRect(x: 15, y: 0, width: width/3, height: height)
+        scoreHeaderLabel.frame = CGRect(x: nameHeaderLabel.right+10, y: 0, width: width/5, height: height)
+        matchTimeHeaderLabel.frame = CGRect(x: scoreHeaderLabel.right+20, y: 0, width: width/2, height: height)
     }
 }

@@ -18,7 +18,7 @@ class HomeViewController: UIViewController {
         table.tableFooterView = UIView()
         return table
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -35,6 +35,12 @@ class HomeViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
+        setupTableHeader()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         fetchAllUserLogs()
     }
     
@@ -44,7 +50,14 @@ class HomeViewController: UIViewController {
         // assign frame
         tableView.frame = view.bounds
     }
-
+    
+    private func setupTableHeader() {
+        let headerView = LeaderBoardHeaderView(frame: CGRect(x: 0, y: 0, width: view.width, height: 30))
+        //headerView.clipsToBounds = true
+        
+        tableView.tableHeaderView = headerView
+    }
+    
     @objc private func didTapPlay() {
         let vc = GameViewController()
         vc.modalPresentationStyle = .fullScreen
@@ -53,11 +66,30 @@ class HomeViewController: UIViewController {
     
     private func fetchAllUserLogs() {
         DatabaseManager.shared.getAllUserLogs(completion: { [weak self] allUserLogs in
-            self?.leaderBoard = allUserLogs
+            guard let distinctUserLogs = self?.getDistinctUserLog(allUserLogs: allUserLogs) else {
+                print("Failed to get distinct user log.")
+                return
+            }
+            self?.leaderBoard = distinctUserLogs
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
             }
         })
+    }
+    
+    private func getDistinctUserLog(allUserLogs: [UserLog]) -> [UserLog] {
+        var distinctUserLog: [UserLog] = []
+        var distinctUserName: [String] = []
+        let sortedByHighestScore = allUserLogs.sorted(by: { ($0.score > $1.score) && ($0.name < $1.name) })
+        
+        for userLog in sortedByHighestScore {
+            if !distinctUserName.contains(userLog.name) {
+                distinctUserLog.append(userLog)
+                distinctUserName.append(userLog.name)
+            }
+        }
+        
+        return distinctUserLog
     }
 }
 
@@ -81,9 +113,5 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return LeaderBoardHeaderView()
     }
 }

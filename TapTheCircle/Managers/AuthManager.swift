@@ -14,10 +14,12 @@ final class AuthManager {
     
     private let auth = Auth.auth()
     
+    /// Check if a user is signed in.
     public var isSignedIn: Bool {
         return auth.currentUser != nil
     }
     
+    /// Create a new Firebase user with email.
     public func signUp(email: String, password: String, completion: @escaping (Bool) -> Void) {
         guard !email.trimmingCharacters(in: .whitespaces).isEmpty,
             !password.trimmingCharacters(in: .whitespaces).isEmpty,
@@ -35,6 +37,7 @@ final class AuthManager {
         })
     }
     
+    /// Sign in user.
     public func signIn(email: String, password: String, completion: @escaping (Bool) -> Void) {
         guard !email.trimmingCharacters(in: .whitespaces).isEmpty,
             !password.trimmingCharacters(in: .whitespaces).isEmpty,
@@ -52,6 +55,7 @@ final class AuthManager {
         })
     }
     
+    /// Sign out user.
     public func signOut(completion: (Bool) -> Void) {
         do {
             try auth.signOut()

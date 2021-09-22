@@ -99,7 +99,7 @@ class SignUpViewController: UIViewController {
                 return
             }
             // update database
-            let newUser = User(name: name, email: email, highestScore: 0)
+            let newUser = User(name: name, email: email, profileImageRef: nil)
             DatabaseManager.shared.insertUser(user: newUser, completion: { [weak self] success in
                 guard success else {
                     return
